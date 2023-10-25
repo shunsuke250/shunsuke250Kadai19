@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  CheckList23-10-11
+//  CheckList23-10-21
 //
-//  Created by 副山俊輔 on 2023/10/11.
+//  Created by 副山俊輔 on 2023/10/21.
 //
 
 import UIKit
@@ -13,13 +13,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
         if #available(iOS 15.0, *) {
             let navigationBarAppearance = UINavigationBarAppearance()
             navigationBarAppearance.configureWithDefaultBackground()
             UINavigationBar.appearance().standardAppearance = navigationBarAppearance
             UINavigationBar.appearance().compactAppearance = navigationBarAppearance
             UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
-
+            
             navigationBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.black]
         }
         return true

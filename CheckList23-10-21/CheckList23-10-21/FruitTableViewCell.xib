@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomCell" rowHeight="90" id="KGk-i7-Jjw" customClass="FruitTableViewCell" customModule="CheckList23_10_21" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C04-nC-i6d">
+                        <rect key="frame" x="45" y="34.666666666666664" width="265" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dle-aO-Mpb">
+                        <rect key="frame" x="10" y="32.666666666666664" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="7SR-zS-yJL"/>
+                            <constraint firstAttribute="width" constant="25" id="9xn-1Y-GPh"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Dle-aO-Mpb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Fw5-DA-N7I"/>
+                    <constraint firstAttribute="trailing" secondItem="C04-nC-i6d" secondAttribute="trailing" constant="10" id="H5R-mm-OPA"/>
+                    <constraint firstItem="C04-nC-i6d" firstAttribute="leading" secondItem="Dle-aO-Mpb" secondAttribute="trailing" constant="10" id="e3b-eL-SkD"/>
+                    <constraint firstItem="C04-nC-i6d" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="l2n-Jl-weF"/>
+                    <constraint firstItem="Dle-aO-Mpb" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="xR8-tZ-XJb"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="checkImageView" destination="Dle-aO-Mpb" id="SFz-hn-CMK"/>
+                <outlet property="listNameLabel" destination="C04-nC-i6d" id="hZI-BW-hn1"/>
+            </connections>
+            <point key="canvasLocation" x="56.488549618320612" y="57.74647887323944"/>
+        </tableViewCell>
+    </objects>
+</document>
