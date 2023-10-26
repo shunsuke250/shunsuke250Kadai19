@@ -36,8 +36,7 @@ class ViewController: UIViewController {
     }
 
     private func reverseImageFlag(index: Int) {
-        let selectedFruit = fruits[index]
-        fruits[index] = Fruit(name: selectedFruit.name, shouldShow: !selectedFruit.shouldShow)
+        fruits[index].shouldShow.toggle()
     }
 }
 
