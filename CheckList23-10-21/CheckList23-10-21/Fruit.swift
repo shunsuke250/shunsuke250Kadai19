@@ -9,5 +9,5 @@ import Foundation
 
 struct Fruit {
     let name: String
-    let shouldShow: Bool
+    var shouldShow: Bool
 }
