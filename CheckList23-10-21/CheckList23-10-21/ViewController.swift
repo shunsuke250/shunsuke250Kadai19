@@ -38,6 +38,14 @@ class ViewController: UIViewController {
     private func reverseImageFlag(index: Int) {
         fruits[index].shouldShow.toggle()
     }
+
+    private func showAddViewController() {
+        guard let addViewController = storyboard?.instantiateViewController(identifier: "addView") as? AddViewController else { return }
+        addViewController.delegate = self
+        let navigationController = UINavigationController(rootViewController: addViewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        present(navigationController, animated: true)
+    }
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
@@ -63,7 +71,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             withIdentifier: cellIdentifier,
             for: indexPath
         ) as! FruitTableViewCell
-        cell.configure(fruits[indexPath.row])
+        cell.delegate = self
+        cell.configure(fruits[indexPath.row], indexPath: indexPath)
 
         return cell
     }
@@ -82,5 +91,17 @@ extension ViewController: AddViewControllerDelegate {
     func saveFruit(name: String) {
         fruits.append(Fruit(name: name, shouldShow: false))
         tableView.reloadData()
+    }
+}
+
+extension ViewController: FruitTableViewCellDelegate {
+    func didSelectInfoButton(at indexPath: IndexPath) {
+        print(fruits[indexPath.row])
+        guard let addViewController = storyboard?.instantiateViewController(identifier: "addView") as? AddViewController else { return }
+        addViewController.delegate = self
+        let navigationController = UINavigationController(rootViewController: addViewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        addViewController.configure(fruits[indexPath.row].name)
+        present(navigationController, animated: true)
     }
 }

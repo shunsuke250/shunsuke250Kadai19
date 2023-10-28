@@ -27,4 +27,11 @@ class AddViewController: UIViewController {
         delegate?.saveFruit(name: fruit)
         dismiss(animated: true, completion: nil)
     }
+
+    func configure(_ data: String) {
+        // addTextFieldがnilになる
+        if let textField = addTextField {
+            textField.text = data
+        }
+    }
 }
