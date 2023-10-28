@@ -29,21 +29,35 @@
                             <constraint firstAttribute="width" constant="25" id="9xn-1Y-GPh"/>
                         </constraints>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rDc-KF-Vgm">
+                        <rect key="frame" x="260.33333333333331" y="27.666666666666671" width="49.666666666666686" height="35"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" image="info.circle" catalog="system"/>
+                        <connections>
+                            <action selector="didTapInfoButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="cNG-MM-fcE"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="rDc-KF-Vgm" secondAttribute="trailing" constant="10" id="5mW-RB-Eii"/>
                     <constraint firstItem="Dle-aO-Mpb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Fw5-DA-N7I"/>
                     <constraint firstAttribute="trailing" secondItem="C04-nC-i6d" secondAttribute="trailing" constant="10" id="H5R-mm-OPA"/>
                     <constraint firstItem="C04-nC-i6d" firstAttribute="leading" secondItem="Dle-aO-Mpb" secondAttribute="trailing" constant="10" id="e3b-eL-SkD"/>
                     <constraint firstItem="C04-nC-i6d" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="l2n-Jl-weF"/>
+                    <constraint firstItem="rDc-KF-Vgm" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="vo1-sC-OK8"/>
                     <constraint firstItem="Dle-aO-Mpb" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="xR8-tZ-XJb"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="checkImageView" destination="Dle-aO-Mpb" id="SFz-hn-CMK"/>
+                <outlet property="didTapInfoButton" destination="vo1-sC-OK8" id="0C0-GS-LsJ"/>
                 <outlet property="listNameLabel" destination="C04-nC-i6d" id="hZI-BW-hn1"/>
             </connections>
             <point key="canvasLocation" x="56.488549618320612" y="57.74647887323944"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="info.circle" catalog="system" width="128" height="123"/>
+    </resources>
 </document>
