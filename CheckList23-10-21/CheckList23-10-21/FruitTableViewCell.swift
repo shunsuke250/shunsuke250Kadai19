@@ -17,6 +17,10 @@ class FruitTableViewCell: UITableViewCell {
         checkImageView.image = UIImage(systemName: "checkmark")
     }
 
+    @IBAction func didTapInfoButton(_ sender: UIButton) {
+        
+    }
+    
     func configure(_ fruit: Fruit) {
         listNameLabel.text = fruit.name
         checkImageView.isHidden = !fruit.shouldShow

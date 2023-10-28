@@ -33,6 +33,9 @@
                         <rect key="frame" x="260.33333333333331" y="27.666666666666671" width="49.666666666666686" height="35"/>
                         <state key="normal" title="Button"/>
                         <buttonConfiguration key="configuration" style="plain" image="info.circle" catalog="system"/>
+                        <connections>
+                            <action selector="didTapInfoButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="cNG-MM-fcE"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
@@ -48,6 +51,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="checkImageView" destination="Dle-aO-Mpb" id="SFz-hn-CMK"/>
+                <outlet property="didTapInfoButton" destination="vo1-sC-OK8" id="0C0-GS-LsJ"/>
                 <outlet property="listNameLabel" destination="C04-nC-i6d" id="hZI-BW-hn1"/>
             </connections>
             <point key="canvasLocation" x="56.488549618320612" y="57.74647887323944"/>
