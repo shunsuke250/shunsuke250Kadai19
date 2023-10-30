@@ -88,7 +88,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ViewController: AddViewControllerDelegate {
-    func saveFruit(name: String) {
+    func editFruit(name: String, index: IndexPath) {
+        fruits[index.row] = Fruit(name: name, shouldShow: false)
+        tableView.reloadData()
+    }
+
+    func addFruit(name: String) {
         fruits.append(Fruit(name: name, shouldShow: false))
         tableView.reloadData()
     }
@@ -97,11 +102,17 @@ extension ViewController: AddViewControllerDelegate {
 extension ViewController: FruitTableViewCellDelegate {
     func didSelectInfoButton(at indexPath: IndexPath) {
         print(fruits[indexPath.row])
-        guard let addViewController = storyboard?.instantiateViewController(identifier: "addView") as? AddViewController else { return }
+        guard let addViewController = storyboard?.instantiateViewController(identifier: "addView") as? AddViewController else {
+            return
+        }
         addViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: addViewController)
         navigationController.modalPresentationStyle = .fullScreen
-        addViewController.configure(fruits[indexPath.row].name)
+        addViewController.configure(
+            fruits[indexPath.row].name,
+            index: indexPath,
+            pattern: .editExistItem
+        )
         present(navigationController, animated: true)
     }
 }
