@@ -28,22 +28,25 @@ class ViewController: UIViewController {
     }
 
     @IBAction private func addFruit(_ sender: Any) {
-        guard let addViewController = storyboard?.instantiateViewController(identifier: "addView") as? AddViewController else { return }
-        addViewController.delegate = self
-        let navigationController = UINavigationController(rootViewController: addViewController)
-        navigationController.modalPresentationStyle = .fullScreen
-        present(navigationController, animated: true)
+        showAddViewControllerForEditing()
     }
 
     private func reverseImageFlag(index: Int) {
         fruits[index].shouldShow.toggle()
     }
 
-    private func showAddViewController() {
+    private func showAddViewControllerForEditing(at indexPath: IndexPath? = nil) {
         guard let addViewController = storyboard?.instantiateViewController(identifier: "addView") as? AddViewController else { return }
         addViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: addViewController)
         navigationController.modalPresentationStyle = .fullScreen
+        if let indexPath = indexPath {
+            addViewController.configure(
+                fruits[indexPath.row].name,
+                index: indexPath,
+                pattern: .editExistItem
+            )
+        }
         present(navigationController, animated: true)
     }
 }
@@ -101,18 +104,6 @@ extension ViewController: AddViewControllerDelegate {
 
 extension ViewController: FruitTableViewCellDelegate {
     func didSelectInfoButton(at indexPath: IndexPath) {
-        print(fruits[indexPath.row])
-        guard let addViewController = storyboard?.instantiateViewController(identifier: "addView") as? AddViewController else {
-            return
-        }
-        addViewController.delegate = self
-        let navigationController = UINavigationController(rootViewController: addViewController)
-        navigationController.modalPresentationStyle = .fullScreen
-        addViewController.configure(
-            fruits[indexPath.row].name,
-            index: indexPath,
-            pattern: .editExistItem
-        )
-        present(navigationController, animated: true)
+        showAddViewControllerForEditing(at: indexPath)
     }
 }
