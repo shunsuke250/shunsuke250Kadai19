@@ -22,7 +22,7 @@ class AddViewController: UIViewController {
     private var pattern: Pattern = .addNewItem
 
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         titleTextField.text = defaultTitle
     }
 
