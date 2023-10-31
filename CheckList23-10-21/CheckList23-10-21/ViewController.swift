@@ -83,7 +83,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     ) {
         tableView.deselectRow(at: indexPath, animated: true)
         reverseImageFlag(index: indexPath.row)
-        tableView.reloadData()
+        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }
 
