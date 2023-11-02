@@ -97,7 +97,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="addTextField" destination="8Nj-TS-HcB" id="SH8-5d-cMn"/>
+                        <outlet property="titleTextField" destination="8Nj-TS-HcB" id="SH8-5d-cMn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ux9-pP-YSq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -126,7 +126,6 @@
         <!--Navigation Controller-->
         <scene sceneID="qAR-8F-A36">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hlK-fV-msc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6Ao-vw-PS6" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="RYU-Dl-rdS"/>
@@ -139,6 +138,7 @@
                         <segue destination="cDV-0r-DR4" kind="relationship" relationship="rootViewController" id="Lcl-t5-bo3"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hlK-fV-msc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1747" y="-2"/>
         </scene>

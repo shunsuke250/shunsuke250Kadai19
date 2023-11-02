@@ -28,15 +28,26 @@ class ViewController: UIViewController {
     }
 
     @IBAction private func addFruit(_ sender: Any) {
-        guard let addViewController = storyboard?.instantiateViewController(identifier: "addView") as? AddViewController else { return }
-        addViewController.delegate = self
-        let navigationController = UINavigationController(rootViewController: addViewController)
-        navigationController.modalPresentationStyle = .fullScreen
-        present(navigationController, animated: true)
+        showAddViewControllerForEditing()
     }
 
     private func reverseImageFlag(index: Int) {
         fruits[index].shouldShow.toggle()
+    }
+
+    private func showAddViewControllerForEditing(at indexPath: IndexPath? = nil) {
+        guard let addViewController = storyboard?.instantiateViewController(identifier: "addView") as? AddViewController else { return }
+        addViewController.delegate = self
+        let navigationController = UINavigationController(rootViewController: addViewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        if let indexPath = indexPath {
+            addViewController.configure(
+                fruits[indexPath.row].name,
+                index: indexPath,
+                pattern: .editExistItem
+            )
+        }
+        present(navigationController, animated: true)
     }
 }
 
@@ -63,7 +74,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             withIdentifier: cellIdentifier,
             for: indexPath
         ) as! FruitTableViewCell
-        cell.configure(fruits[indexPath.row])
+        cell.delegate = self
+        cell.configure(fruits[indexPath.row], indexPath: indexPath)
 
         return cell
     }
@@ -74,13 +86,24 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     ) {
         tableView.deselectRow(at: indexPath, animated: true)
         reverseImageFlag(index: indexPath.row)
-        tableView.reloadData()
+        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }
 
 extension ViewController: AddViewControllerDelegate {
-    func saveFruit(name: String) {
+    func editFruit(name: String, index: IndexPath) {
+        fruits[index.row] = Fruit(name: name, shouldShow: false)
+        tableView.reloadData()
+    }
+
+    func addFruit(name: String) {
         fruits.append(Fruit(name: name, shouldShow: false))
         tableView.reloadData()
+    }
+}
+
+extension ViewController: FruitTableViewCellDelegate {
+    func didSelectInfoButton(at indexPath: IndexPath) {
+        showAddViewControllerForEditing(at: indexPath)
     }
 }
