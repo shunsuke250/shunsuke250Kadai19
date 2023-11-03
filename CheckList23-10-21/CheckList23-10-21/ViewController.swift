@@ -88,6 +88,24 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         reverseImageFlag(index: indexPath.row)
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
+
+    func tableView(
+        _ tableView: UITableView,
+        canEditRowAt indexPath: IndexPath
+    ) -> Bool {
+        true
+    }
+
+    func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
+        if editingStyle == .delete {
+            fruits.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
 }
 
 extension ViewController: AddViewControllerDelegate {
