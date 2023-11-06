@@ -14,16 +14,33 @@ protocol AddViewControllerDelegate: AnyObject {
 
 class AddViewController: UIViewController {
 
+    enum Mode {
+        case add
+        case edit(name: String, indexPath: IndexPath)
+    }
+
     @IBOutlet private weak var titleTextField: UITextField!
 
     weak var delegate: AddViewControllerDelegate?
-    private var defaultTitle = ""
-    private var index: IndexPath?
-    private var pattern: Pattern = .addNewItem
+
+    private var mode: Mode = .add
+
+    static func instantiate(mode: Mode) -> AddViewController {
+        let addViewController = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(identifier: "addView") as! AddViewController
+        addViewController.mode = mode
+        return addViewController
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        titleTextField.text = defaultTitle
+        
+        switch mode {
+        case .add:
+            break
+        case .edit(let name, _):
+            titleTextField.text = name
+        }
     }
 
     @IBAction private func cancel(_ sender: UIBarButtonItem) {
@@ -35,20 +52,14 @@ class AddViewController: UIViewController {
               !fruit.isEmpty else {
             return
         }
-        switch pattern {
-        case .addNewItem:
+        
+        switch mode {
+        case .add:
             delegate?.addFruit(name: fruit)
-        case .editExistItem:
-            if let index = index {
-                delegate?.editFruit(name: fruit, index: index)
-            }
+        case let .edit(_, indexPath):
+            delegate?.editFruit(name: fruit, index: indexPath)
         }
+        
         dismiss(animated: true, completion: nil)
-    }
-
-    func configure(_ data: String, index: IndexPath, pattern: Pattern) {
-        defaultTitle = data
-        self.pattern = pattern
-        self.index = index
     }
 }

@@ -11,8 +11,3 @@ struct Fruit {
     let name: String
     var shouldShow: Bool
 }
-
-enum Pattern {
-    case addNewItem
-    case editExistItem
-}

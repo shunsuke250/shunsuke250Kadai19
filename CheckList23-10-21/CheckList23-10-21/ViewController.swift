@@ -28,25 +28,18 @@ class ViewController: UIViewController {
     }
 
     @IBAction private func addFruit(_ sender: Any) {
-        showAddViewControllerForEditing()
+        showAddViewControllerForEditing(mode: .add)
     }
 
     private func reverseImageFlag(index: Int) {
         fruits[index].shouldShow.toggle()
     }
 
-    private func showAddViewControllerForEditing(at indexPath: IndexPath? = nil) {
-        guard let addViewController = storyboard?.instantiateViewController(identifier: "addView") as? AddViewController else { return }
+    private func showAddViewControllerForEditing(mode: AddViewController.Mode) {
+        let addViewController = AddViewController.instantiate(mode: mode)
         addViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: addViewController)
         navigationController.modalPresentationStyle = .fullScreen
-        if let indexPath = indexPath {
-            addViewController.configure(
-                fruits[indexPath.row].name,
-                index: indexPath,
-                pattern: .editExistItem
-            )
-        }
         present(navigationController, animated: true)
     }
 }
@@ -115,6 +108,11 @@ extension ViewController: AddViewControllerDelegate {
 
 extension ViewController: FruitTableViewCellDelegate {
     func didSelectInfoButton(at indexPath: IndexPath) {
-        showAddViewControllerForEditing(at: indexPath)
+        showAddViewControllerForEditing(
+            mode: .edit(
+                name: fruits[indexPath.row].name,
+                indexPath: indexPath
+            )
+        )
     }
 }
