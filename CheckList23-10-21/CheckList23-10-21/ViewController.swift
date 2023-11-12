@@ -25,6 +25,7 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "FruitTableViewCell", bundle: nil), forCellReuseIdentifier: cellIdentifier)
+        loadFruitsFromUserDefaults()
     }
 
     @IBAction private func addFruit(_ sender: Any) {
@@ -42,6 +43,21 @@ class ViewController: UIViewController {
         navigationController.modalPresentationStyle = .fullScreen
         present(navigationController, animated: true)
     }
+
+    private func saveFruitsToUserDefaults() {
+        let encoder = JSONEncoder()
+        if let encodedData = try? encoder.encode(fruits) {
+            UserDefaults.standard.set(encodedData, forKey: "fruitsKey")
+        }
+    }
+
+    private func loadFruitsFromUserDefaults() {
+        if let savedData = UserDefaults.standard.data(forKey: "fruitsKey"),
+           let decodedFruits = try? JSONDecoder().decode([Fruit].self, from: savedData) {
+            fruits = decodedFruits
+        }
+    }
+
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
@@ -79,6 +95,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     ) {
         tableView.deselectRow(at: indexPath, animated: true)
         reverseImageFlag(index: indexPath.row)
+        saveFruitsToUserDefaults()
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 
@@ -89,6 +106,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     ) {
         if editingStyle == .delete {
             fruits.remove(at: indexPath.row)
+            saveFruitsToUserDefaults()
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
@@ -97,11 +115,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 extension ViewController: AddViewControllerDelegate {
     func editFruit(name: String, index: IndexPath) {
         fruits[index.row] = Fruit(name: name, shouldShow: false)
+        saveFruitsToUserDefaults()
         tableView.reloadData()
     }
 
     func addFruit(name: String) {
         fruits.append(Fruit(name: name, shouldShow: false))
+        saveFruitsToUserDefaults()
         tableView.reloadData()
     }
 }

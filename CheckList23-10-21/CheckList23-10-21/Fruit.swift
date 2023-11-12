@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Fruit {
+struct Fruit: Codable {
     let name: String
     var shouldShow: Bool
 }
