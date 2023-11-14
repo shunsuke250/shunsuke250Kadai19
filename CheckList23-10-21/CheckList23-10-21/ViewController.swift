@@ -9,6 +9,10 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    private enum Error: Swift.Error {
+        case dataNotFound
+    }
+
     @IBOutlet private weak var tableView: UITableView!
 
     private var fruits = [
@@ -25,7 +29,7 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "FruitTableViewCell", bundle: nil), forCellReuseIdentifier: cellIdentifier)
-        loadFruitsFromUserDefaults()
+        try? loadFruitsFromUserDefaults()
     }
 
     @IBAction private func addFruit(_ sender: Any) {
@@ -44,18 +48,18 @@ class ViewController: UIViewController {
         present(navigationController, animated: true)
     }
 
-    private func saveFruitsToUserDefaults() {
+    private func saveFruitsToUserDefaults() throws {
         let encoder = JSONEncoder()
-        if let encodedData = try? encoder.encode(fruits) {
-            UserDefaults.standard.set(encodedData, forKey: "fruitsKey")
-        }
+        let encodedData = try encoder.encode(fruits)
+        UserDefaults.standard.set(encodedData, forKey: "fruitsKey")
     }
 
-    private func loadFruitsFromUserDefaults() {
-        if let savedData = UserDefaults.standard.data(forKey: "fruitsKey"),
-           let decodedFruits = try? JSONDecoder().decode([Fruit].self, from: savedData) {
-            fruits = decodedFruits
+    private func loadFruitsFromUserDefaults() throws {
+        guard let savedData = UserDefaults.standard.data(forKey: "fruitsKey") else {
+            throw Error.dataNotFound
         }
+        let decodedFruits = try JSONDecoder().decode([Fruit].self, from: savedData)
+        fruits = decodedFruits
     }
 
 }
@@ -95,7 +99,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     ) {
         tableView.deselectRow(at: indexPath, animated: true)
         reverseImageFlag(index: indexPath.row)
-        saveFruitsToUserDefaults()
+        try? saveFruitsToUserDefaults()
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 
@@ -106,7 +110,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     ) {
         if editingStyle == .delete {
             fruits.remove(at: indexPath.row)
-            saveFruitsToUserDefaults()
+            try? saveFruitsToUserDefaults()
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
@@ -115,13 +119,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 extension ViewController: AddViewControllerDelegate {
     func editFruit(name: String, index: IndexPath) {
         fruits[index.row] = Fruit(name: name, shouldShow: false)
-        saveFruitsToUserDefaults()
+        try? saveFruitsToUserDefaults()
         tableView.reloadData()
     }
 
     func addFruit(name: String) {
         fruits.append(Fruit(name: name, shouldShow: false))
-        saveFruitsToUserDefaults()
+        try? saveFruitsToUserDefaults()
         tableView.reloadData()
     }
 }
